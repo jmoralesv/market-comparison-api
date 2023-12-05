@@ -1,6 +1,11 @@
 # Taken from: https://raw.githubusercontent.com/madskristensen/MarkdownEditor2022/master/.editorconfig
 # EditorConfig is awesome:http://EditorConfig.org
 
+# Configuration options: https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/configuration-options
+# For code quality rules: https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/
+# For .NET and C# code style rules: https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/
+# For writing custom naming rules: https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/naming-rules
+
 # top-most EditorConfig file
 root = true
 
@@ -25,8 +30,8 @@ tab_width = 2
 indent_size = 2
 tab_width = 2
 
-# JSON files
-[*.json]
+# JSON and YAML files
+[*.{json,yml,yaml}]
 indent_size = 2
 tab_width = 2
 
@@ -106,6 +111,95 @@ dotnet_style_prefer_simplified_interpolation = true:suggestion
 dotnet_style_readonly_field = true:suggestion
 dotnet_style_require_accessibility_modifiers = for_non_interface_members:silent
 
+# Design rules
+dotnet_diagnostic.CA1041.severity = warning # CA1041: Provide ObsoleteAttribute message
+dotnet_diagnostic.CA1045.severity = warning # CA1045: Do not pass types by reference
+dotnet_diagnostic.CA1047.severity = error # CA1047: Do not declare protected members in sealed types
+dotnet_diagnostic.CA1051.severity = error # CA1051: Do not declare visible instance fields
+dotnet_diagnostic.CA1052.severity = error # CA1052: Static holder types should be Static or NotInheritable
+dotnet_diagnostic.CA1053.severity = error # CA1053: Static holder types should not have default constructors
+dotnet_diagnostic.CA1061.severity = error # CA1061: Do not hide base class methods
+dotnet_diagnostic.CA1062.severity = suggestion # CA1062: Validate arguments of public methods
+dotnet_diagnostic.CA1065.severity = error # CA1065: Do not raise exceptions in unexpected locations
+
+# Globalization rules
+dotnet_diagnostic.CA1307.severity = warning # CA1307: Specify StringComparison for clarity
+dotnet_diagnostic.CA1308.severity = warning # CA1308: Normalize strings to uppercase
+dotnet_diagnostic.CA1311.severity = warning # CA1311: Specify a culture or use an invariant version
+
+# Maintainability rules
+dotnet_diagnostic.RS2008.severity = none # RS2008: Enable analyzer release tracking
+dotnet_diagnostic.CA1502.severity = warning # CA1502: Avoid excessive complexity
+dotnet_diagnostic.CA1505.severity = warning # CA1505: Avoid unmaintainable code
+dotnet_diagnostic.CA1507.severity = warning # CA1507: Use nameof in place of string
+dotnet_diagnostic.CA1510.severity = warning # CA1510: Use ArgumentNullException throw helper
+dotnet_diagnostic.CA1511.severity = warning # CA1511: Use ArgumentException throw helper
+dotnet_diagnostic.CA1512.severity = warning # CA1512: Use ArgumentOutOfRangeException throw helper
+dotnet_diagnostic.CA1513.severity = warning # CA1513: Use ObjectDisposedException throw helper
+
+# Performance rules
+dotnet_diagnostic.CA1805.severity = warning # CA1805: Do not initialize unnecessarily
+dotnet_diagnostic.CA1822.severity = warning # CA1822: Mark members as static
+dotnet_diagnostic.CA1823.severity = error # CA1823: Avoid unused private fields
+dotnet_diagnostic.CA1825.severity = warning # CA1825: Avoid zero-length array allocations
+dotnet_diagnostic.CA1826.severity = warning # CA1826: Use property instead of Linq Enumerable method
+dotnet_diagnostic.CA1827.severity = warning # CA1827: Do not use Count()/LongCount() when Any() can be used
+dotnet_diagnostic.CA1828.severity = warning # CA1828: Do not use CountAsync/LongCountAsync when AnyAsync can be used
+dotnet_diagnostic.CA1829.severity = warning # CA1829: Use Length/Count property instead of Enumerable.Count method
+dotnet_diagnostic.CA1836.severity = warning # CA1836: Prefer IsEmpty over Count when available
+dotnet_diagnostic.CA1845.severity = warning # CA1845: Use span-based 'string.Concat'
+dotnet_diagnostic.CA1846.severity = warning # CA1846: Prefer AsSpan over Substring
+dotnet_diagnostic.CA1847.severity = warning # CA1847: Use string.Contains(char) instead of string.Contains(string) with single characters
+dotnet_diagnostic.CA1849.severity = warning # CA1849: Call async methods when in an async method
+dotnet_diagnostic.CA1851.severity = warning # CA1851: Possible multiple enumerations of IEnumerable collection
+dotnet_diagnostic.CA1852.severity = error # CA1852: Seal internal types
+dotnet_diagnostic.CA1853.severity = warning # CA1853: Unnecessary call to 'Dictionary.ContainsKey(key)'
+dotnet_diagnostic.CA1854.severity = warning # CA1854: Prefer the IDictionary.TryGetValue(TKey, out TValue) method
+dotnet_diagnostic.CA1859.severity = warning # CA1859: Use concrete types when possible for improved performance
+dotnet_diagnostic.CA1860.severity = warning # CA1860: Avoid using 'Enumerable.Any()' extension method
+dotnet_diagnostic.CA1861.severity = suggestion # CA1861: Avoid constant arrays as arguments
+dotnet_diagnostic.CA1864.severity = warning # CA1864: Prefer the 'IDictionary.TryAdd(TKey, TValue)' method
+dotnet_diagnostic.CA1865.severity = warning # CA1865-CA1867: Use 'string.Method(char)' instead of 'string.Method(string)' for string with single char
+dotnet_diagnostic.CA1866.severity = warning # CA1865-CA1867: Use 'string.Method(char)' instead of 'string.Method(string)' for string with single char
+dotnet_diagnostic.CA1867.severity = warning # CA1865-CA1867: Use 'string.Method(char)' instead of 'string.Method(string)' for string with single char
+dotnet_diagnostic.CA1868.severity = warning # CA1868: Unnecessary call to 'Contains' for sets
+dotnet_diagnostic.CA1869.severity = error # CA1869: Cache and reuse 'JsonSerializerOptions' instances
+
+# Reliability rules
+dotnet_diagnostic.CA2000.severity = warning # CA2000: Dispose objects before losing scope
+
+# Security rules
+dotnet_diagnostic.CA2119.severity = error # CA2119: Seal methods that satisfy private interfaces
+dotnet_diagnostic.CA3147.severity = warning # CA3147: Mark verb handlers with ValidateAntiForgeryToken (for ASP.NET MVC controllers)
+dotnet_diagnostic.CA5351.severity = error # CA5351 Do Not Use Broken Cryptographic Algorithms (i.e. MD5, DES, RC2)
+dotnet_diagnostic.CA5358.severity = error # CA5358: Do Not Use Unsafe Cipher Modes
+dotnet_diagnostic.CA5363.severity = error # CA5363: Do not disable request validation (for ASP.NET MVC controllers)
+dotnet_diagnostic.CA5364.severity = error # CA5364: Do not use deprecated security protocols
+dotnet_diagnostic.CA5391.severity = error # CA5391: Use anti-forgery tokens in ASP.NET Core MVC controllers
+dotnet_diagnostic.CA5395.severity = warning # CA5395: Miss HttpVerb attribute for action methods
+
+# Usage rules
+dotnet_diagnostic.CA1801.severity = warning # CA1801: Review unused parameters
+dotnet_diagnostic.CA2208.severity = warning # CA2208: Instantiate argument exceptions correctly
+dotnet_diagnostic.CA2211.severity = warning # CA2211: Non-constant fields should not be visible
+dotnet_diagnostic.CA2214.severity = warning # CA2214: Do not call overridable methods in constructors
+dotnet_diagnostic.CA2251.severity = warning # CA2251: Use String.Equals over String.Compare
+dotnet_diagnostic.CA2254.severity = warning # CA2254: Template should be a static expression
+
+# Language and unnecessary code rules
+dotnet_diagnostic.IDE0058.severity = silent # Remove unnecessary expression value (IDE0058)
+dotnet_diagnostic.IDE0004.severity = warning # Remove unnecessary cast (IDE0004)
+dotnet_diagnostic.IDE0005.severity = warning # Remove unnecessary using directives (IDE0005)
+dotnet_diagnostic.IDE0035.severity = error # Remove unreachable code (IDE0035)
+dotnet_diagnostic.IDE0050.severity = suggestion # Convert anonymous type to tuple (IDE0050)
+dotnet_diagnostic.IDE0051.severity = warning # Remove unused private member (IDE0051)
+dotnet_diagnostic.IDE0052.severity = warning # Remove unread private member (IDE0052)
+dotnet_diagnostic.IDE0082.severity = suggestion # Convert typeof to nameof (IDE0082)
+dotnet_diagnostic.IDE0120.severity = warning # Simplify LINQ expression (IDE0120)
+dotnet_diagnostic.IDE0240.severity = warning # Nullable directive is redundant (IDE0240)
+dotnet_diagnostic.IDE0241.severity = warning # Nullable directive is unnecessary (IDE0241)
+dotnet_diagnostic.IDE0280.severity = warning # Use 'nameof' (IDE0280)
+
 # CSharp code style settings:
 [*.cs]
 # Prefer "var" everywhere
@@ -123,6 +217,7 @@ csharp_style_expression_bodied_properties             = true:none
 csharp_style_expression_bodied_indexers               = true:none
 csharp_style_expression_bodied_accessors              = true:none
 csharp_style_expression_bodied_lambdas                = true:none
+csharp_style_expression_bodied_local_functions        = true:silent
 
 # Suggest more modern language features when available
 csharp_style_pattern_matching_over_is_with_cast_check = true:suggestion
@@ -138,10 +233,7 @@ csharp_new_line_before_catch                          = true
 csharp_new_line_before_finally                        = true
 csharp_new_line_before_members_in_object_initializers = true
 csharp_new_line_before_members_in_anonymous_types     = true
-
-# IDE 
-dotnet_diagnostic.IDE0058.severity = none
-dotnet_diagnostic.RS2008.severity = none # RS2008: Enable analyzer release tracking
+csharp_new_line_between_query_expression_clauses      = true
 
 csharp_indent_labels = one_less_than_current
 csharp_prefer_braces = true:silent
@@ -155,12 +247,13 @@ csharp_style_allow_blank_line_after_token_in_conditional_expression_experimental
 csharp_style_allow_blank_lines_between_consecutive_braces_experimental = true:silent
 csharp_style_allow_embedded_statements_on_same_line_experimental = true:silent
 csharp_style_deconstructed_variable_declaration = true:suggestion
-csharp_style_expression_bodied_local_functions = true:silent
 csharp_style_implicit_object_creation_when_type_is_apparent = true:suggestion
 csharp_style_namespace_declarations = file_scoped:suggestion
+csharp_style_prefer_extended_property_pattern = true:suggestion
 csharp_style_prefer_index_operator = true:suggestion
 csharp_style_prefer_local_over_anonymous_function = true:suggestion
 csharp_style_prefer_method_group_conversion = true:silent
+csharp_style_prefer_not_pattern = true:suggestion
 csharp_style_prefer_null_check_over_type_check = true:suggestion
 csharp_style_prefer_pattern_matching = true:silent
 csharp_style_prefer_primary_constructors = true:suggestion

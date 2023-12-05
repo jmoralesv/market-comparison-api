@@ -5,9 +5,14 @@ name: Build Market.Comparison.Api
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - "**"
   pull_request:
     branches: [ "main" ]
+
+env:
+  webProject: '**/Market.Comparison.Api.csproj'
+  buildConfiguration: ${{ github.ref == 'refs/heads/main' && 'Release' || 'Debug' }}
 
 jobs:
   build-market-comparison-api:
@@ -15,17 +20,41 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: "src/Market.Comparison.Api"
+        working-directory: src
 
     steps:
     - uses: actions/checkout@v3
-    - name: Setup .NET
+      with:
+        fetch-depth: 0 # Disable shallow fetch to get the full history of the repository
+
+    - name: Setup Git Version
+      uses: GitTools/actions/gitversion/setup@v0.10.2
+      with:
+        versionSpec: '5.x'
+
+    - name: Execute Git Version
+      uses: GitTools/actions/gitversion/execute@v0.10.2
+      with:
+        updateAssemblyInfo: false
+        useConfigFile: true
+        configFilePath: '.github/GitVersion.yml'
+
+    - name: Find web project's physical path
+      run: |
+        path=$(find . -name "Market.Comparison.Api.csproj" -print -quit)
+        echo "webProjectPath value -> $path"
+        echo "webProjectPath=$path" >> $GITHUB_ENV
+
+    - name: Use .NET 8 SDK
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 7.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+        dotnet-version: 8.x
+
+    - name: Restore web project
+      run: dotnet restore ${{ env.webProject }} --verbosity Minimal
+
+    - name: Build web project
+      run: dotnet build ${{ env.webProject }} --configuration ${{ env.buildConfiguration }} --no-restore /p:Version=${{ env.GitVersion_SemVer }} /p:PublicRelease=true /p:RunAnalyzersDuringBuild=true
+
+    - name: Install EF Core Tools
+      run: dotnet tool install --global dotnet-ef

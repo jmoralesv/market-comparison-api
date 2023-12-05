@@ -42,9 +42,9 @@ internal static class WeatherForecastEndpoints
     }
 }
 
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary, List<Claim> claims)
+internal sealed record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary, List<Claim> claims)
 {
     internal int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }
 
-internal record Claim(string ClaimType, string ClaimValue);
+internal sealed record Claim(string ClaimType, string ClaimValue);
