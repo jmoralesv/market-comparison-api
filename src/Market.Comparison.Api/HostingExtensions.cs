@@ -54,14 +54,12 @@ internal static class HostingExtensions
             });
 
         // adds an authorization policy to make sure the token is for scope 'Market.Comparison.Api'
-        builder.Services.AddAuthorization(options =>
-        {
-            options.AddPolicy("ApiScope", policy =>
+        builder.Services.AddAuthorizationBuilder()
+            .AddPolicy("ApiScope", policy =>
             {
                 policy.RequireAuthenticatedUser();
                 policy.RequireClaim("scope", "Market.Comparison.Api");
             });
-        });
 
         return builder.Build();
     }
